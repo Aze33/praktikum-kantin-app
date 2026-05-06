@@ -19,8 +19,10 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: IDENTITAS
-              value: "Zahran Zaidan Saputra - 2415429"
+            - name: NAMA_MAHASISWA
+              value: "Zahran Zaidan Saputra"
+            - name: NIM_MAHASISWA
+              value: "2415429"
             - name: NAMA_KANTIN
               value: "Dota 2 Item Catalog"
             - name: MENU
