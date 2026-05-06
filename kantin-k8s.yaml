@@ -13,18 +13,18 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend-api
-        # JANGAN LUPA: Ganti dengan username docker kamu!
-        image: <USERNAME_DOCKER_KAMU>/kantin-backend:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 5000
-        # INJEKSI IDENTITAS (Tugas 2)
-        env:
-        - name: NAMA_MAHASISWA
-          value: "Zahran Zaidan Saputra"
-        - name: NIM_MAHASISWA
-          value: "2415429"
+        - name: backend-api
+          # JANGAN LUPA: Ganti dengan username docker kamu!
+          image: zahranz/kantin-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          # INJEKSI IDENTITAS (Tugas 2)
+          env:
+            - name: NAMA_MAHASISWA
+              value: "Zahran Zaidan Saputra"
+            - name: NIM_MAHASISWA
+              value: "2415429"
 ---
 apiVersion: v1
 kind: Service
@@ -34,9 +34,9 @@ spec:
   selector:
     app: backend
   ports:
-  - protocol: TCP
-    port: 5000
-    targetPort: 5000
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
   type: ClusterIP # Ubah ke ClusterIP
 ---
 apiVersion: apps/v1
@@ -54,11 +54,11 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend-ui
-        image: zahranz/kantin-frontend:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
+        - name: frontend-ui
+          image: zahranz/kantin-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -68,7 +68,7 @@ spec:
   selector:
     app: frontend
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: ClusterIP # Ubah ke ClusterIP
