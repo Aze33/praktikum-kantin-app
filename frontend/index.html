@@ -164,20 +164,19 @@
         fetch(`${API_URL}/info`)
           .then((res) => res.json())
           .then((data) => {
-            // Memaksa judul di frontend agar selalu menjadi tema Dota 2
+            // Judul dipaksa menjadi Dota 2 Item Catalog
             document.getElementById("kantin-name").innerText =
               "Dota 2 Item Catalog";
 
+            // Sesuai respons JSON aslimu yang menggunakan key "identitas"
             document.getElementById("identitas").innerText =
               "Developer: " +
-              (data.developer ||
-                data.identitas ||
-                "Zahran Zaidan Saputra - 2415429");
+              (data.identitas || "Zahran Zaidan Saputra - 2415429");
 
             const list = document.getElementById("menu-list");
             list.innerHTML = "";
 
-            // Menampilkan daftar item Dota 2
+            // Render menu/item
             data.menu.forEach((item) => {
               let li = document.createElement("li");
               li.innerText = item;
