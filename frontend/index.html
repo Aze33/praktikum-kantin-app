@@ -12,7 +12,7 @@
         padding: 40px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* Sesuai layout kiri khas Dota */
+        align-items: flex-start;
         min-height: 100vh;
       }
 
@@ -164,11 +164,9 @@
         fetch(`${API_URL}/info`)
           .then((res) => res.json())
           .then((data) => {
-            // Judul dipaksa menjadi Dota 2 Item Catalog
             document.getElementById("kantin-name").innerText =
               "Dota 2 Item Catalog";
 
-            // Sesuai respons JSON aslimu yang menggunakan key "identitas"
             document.getElementById("identitas").innerText =
               "Developer: " +
               (data.identitas || "Zahran Zaidan Saputra - 2415429");
