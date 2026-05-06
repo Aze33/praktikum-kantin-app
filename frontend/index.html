@@ -1,33 +1,176 @@
 <!doctype html>
 <html>
   <head>
-    <title>E-Kantin</title>
+    <title>Dota 2 Item Catalog & Inventory</title>
+    <style>
+      /* Tema Dota 2: Gelap, Merah, Abu-abu */
+      body {
+        background-color: #111111;
+        color: #e4e4e4;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Sesuai layout kiri khas Dota */
+        min-height: 100vh;
+      }
+
+      h1 {
+        color: #ff3e3e;
+        font-size: 2.5rem;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 3px solid #ff3e3e;
+        padding-bottom: 10px;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h3#identitas {
+        color: #ff8b8b !important;
+        font-size: 1.1rem;
+        margin-top: 5px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+
+      /* List Item Inventory */
+      ul#menu-list {
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      ul#menu-list li {
+        background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%);
+        border-left: 5px solid #ff3e3e;
+        margin-bottom: 12px;
+        padding: 15px 20px;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
+      }
+
+      ul#menu-list li:hover {
+        transform: translateX(5px);
+        background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      }
+
+      hr {
+        border: 0;
+        height: 1px;
+        background: #333;
+        width: 100%;
+        max-width: 600px;
+        margin: 30px 0;
+      }
+
+      /* Bagian Form Tambah Item */
+      .form-section {
+        background-color: #1a1a1a;
+        padding: 25px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        width: 100%;
+        max-width: 550px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .form-section h3 {
+        color: #ff3e3e;
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+      }
+
+      input[type="text"] {
+        width: 70%;
+        padding: 12px;
+        background-color: #0d0d0d;
+        border: 1px solid #444;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 1rem;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      input[type="text"]:focus {
+        border-color: #ff3e3e;
+      }
+
+      button {
+        width: 25%;
+        padding: 12px;
+        background-color: #ff3e3e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: background 0.3s;
+        margin-left: 3%;
+      }
+
+      button:hover {
+        background-color: #d12929;
+      }
+
+      /* Teks Otomatisasi */
+      .pipeline-text {
+        margin-top: 20px;
+        font-size: 0.85rem;
+        color: #666;
+        font-style: italic;
+      }
+    </style>
   </head>
   <body>
-    <h1 id="kantin-name">Memuat...</h1>
-    <h3 id="identitas" style="color: blue">Memuat identitas...</h3>
+    <h1 id="kantin-name">Dota 2 Item Catalog</h1>
+    <h3 id="identitas">Dibuat oleh: Memuat identitas...</h3>
 
-    <ul id="menu-list"></ul>
+    <ul id="menu-list">
+      <li>Memuat items...</li>
+    </ul>
+
     <hr />
-    <h3>Tambah Menu Baru:</h3>
-    <input type="text" id="menu-input" placeholder="Nama makanan..." />
-    <button onclick="tambahMenu()">Tambah</button>
 
-    Tes otomatisasi pipeline
+    <div class="form-section">
+      <h3>Add New Item to Inventory:</h3>
+      <div style="display: flex; align-items: center">
+        <input
+          type="text"
+          id="menu-input"
+          placeholder="Enter item name (e.g. Blink Dagger)..."
+        />
+        <button onclick="tambahMenu()">Add Item</button>
+      </div>
+    </div>
+
+    <div class="pipeline-text">Status: Tes otomatisasi pipeline aktif.</div>
 
     <script>
-      // UBAH BAGIAN INI: Gunakan Relative Path sesuai syarat Tugas 2
-      const API_URL = "http://localhost:5000/api";
+      const API_URL = "/api";
 
       function loadData() {
         fetch(`${API_URL}/info`)
           .then((res) => res.json())
           .then((data) => {
-            document.getElementById("kantin-name").innerText = data.nama_kantin;
+            // Ubah header kantin menjadi tema Dota jika datanya selesai diambil
+            document.getElementById("kantin-name").innerText =
+              "Dota 2 Item Catalog";
 
             // Menampilkan identitas dari backend
             document.getElementById("identitas").innerText =
-              "Dibuat oleh: " + data.identitas;
+              "Developer: " + data.identitas;
 
             const list = document.getElementById("menu-list");
             list.innerHTML = "";
@@ -36,10 +179,18 @@
               li.innerText = item;
               list.appendChild(li);
             });
+          })
+          .catch((err) => {
+            console.error("Gagal load data: ", err);
+            document.getElementById("menu-list").innerHTML =
+              "<li style='border-left-color: yellow;'>Koneksi backend terputus. Pastikan port-forward jalan!</li>";
           });
       }
+
       function tambahMenu() {
         const input = document.getElementById("menu-input");
+        if (!input.value.trim()) return;
+
         fetch(`${API_URL}/add-menu`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -51,6 +202,7 @@
             loadData();
           });
       }
+
       loadData();
     </script>
   </body>

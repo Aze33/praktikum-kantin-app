@@ -21,10 +21,12 @@ spec:
             - containerPort: 5000
           # INJEKSI IDENTITAS (Tugas 2)
           env:
-            - name: NAMA_MAHASISWA
-              value: "Zahran Zaidan Saputra"
-            - name: NIM_MAHASISWA
-              value: "2415429"
+        - name: IDENTITAS
+          value: "Zahran Zaidan Saputra - 2415429"
+        - name: NAMA_KANTIN
+          value: "Dota 2 Item Catalog"
+        - name: MENU
+          value: "Blink Dagger,Aghanim's Scepter,Monkey King Bar"
 ---
 apiVersion: v1
 kind: Service
