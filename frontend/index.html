@@ -164,16 +164,20 @@
         fetch(`${API_URL}/info`)
           .then((res) => res.json())
           .then((data) => {
-            // Ubah header kantin menjadi tema Dota jika datanya selesai diambil
+            // Memaksa judul di frontend agar selalu menjadi tema Dota 2
             document.getElementById("kantin-name").innerText =
               "Dota 2 Item Catalog";
 
-            // Menampilkan identitas dari backend
             document.getElementById("identitas").innerText =
-              "Developer: " + data.identitas;
+              "Developer: " +
+              (data.developer ||
+                data.identitas ||
+                "Zahran Zaidan Saputra - 2415429");
 
             const list = document.getElementById("menu-list");
             list.innerHTML = "";
+
+            // Menampilkan daftar item Dota 2
             data.menu.forEach((item) => {
               let li = document.createElement("li");
               li.innerText = item;
@@ -183,7 +187,7 @@
           .catch((err) => {
             console.error("Gagal load data: ", err);
             document.getElementById("menu-list").innerHTML =
-              "<li style='border-left-color: yellow;'>Koneksi backend terputus. Pastikan port-forward jalan!</li>";
+              "<li style='border-left-color: yellow;'>Koneksi backend terputus. Pastikan port-forward backend (5000) sudah jalan!</li>";
           });
       }
 
