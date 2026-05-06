@@ -158,7 +158,14 @@
     <div class="pipeline-text">Status: Tes otomatisasi pipeline aktif.</div>
 
     <script>
-      const API_URL = "/api";
+      let API_URL = "/api";
+
+      if (
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+      ) {
+        API_URL = "http://localhost:5000/api";
+      }
 
       function loadData() {
         fetch(`${API_URL}/info`)
